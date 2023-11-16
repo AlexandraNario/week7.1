@@ -1,152 +1,54 @@
-//Write a 3 functions - reverseVowelsAndReplaceL(), reverseVowelsAndReplaceO(), reverseVowelsAndReplaceS(). Apply the following rules:
+//Write a JavaScript program that creates a class called 'Shape' with a method to calculate the area. Create two subclasses, 'Circle' and 'Triangle', that inherit from the 'Shape' class and override the area calculation method. Create an instance of the 'Circle' class and calculate its area. Similarly, do the same for the 'Triangle' class.
 
-//Each function will receive a string, sometimes provided by other functions
-//Each function should reverse the string
-//Each function should console.log the reverse string
-//Use .split(), .join(), .includes() and .replace()
+//OOPs is the Object=Oriented Programming System with four pillars: encapsulation, abstraction, inheritance, and polymorphism.
+//Create a class called 'Shape' with a method to calculate the area
+class Shape {
+  constructor(name) {
+    this.name = name;
+  }
+  //The area method is abstract and should be overridden by subclasses
+    area() {
+    throw new Error("This method must be implemented by subclasses");
+  }
+}
 
-//reverseVowelsAndReplaceL():
-//Replaces all 'L's (uppercase and lowercase) with '1's (ones)
-//Calls reverseVowelsAndReplaceO() while providing it reverseVowelsAndReplaceL’s reversed string
-//reverseVowelsAndReplaceO():
-//Takes reverseVowelsAndReplaceL’s reversed string and reverses it AGAIN
-//Replaces all 'O's (uppercase and lowercase) with '0's (zeros)
-//Calls reverseVowelsAndReplaceS() while providing it reverseVowelsAndReplaceO’s reversed string
-//reverseVowelsAndReplaceS():
-//Replaces all 'S's (uppercase and lowercase) with '5's (fives)
-//Consoles and returns the final reversed string
-  
+//Create a subclass called 'Circle' that inherits from the 'Shape' class
+class Circle extends Shape {
+  constructor(radius) {
+    //Call the super constructor with the name 'circle'
+    //"Intro to JS Classes" slide 19: 
+    //"in order for a subclass to have access to the extended classes' methods the super keyword is need to be called in the constructor"
+    super("circle");
+    this.radius = radius;
+  }
+  //Override the area method to calculate the area of a circle
+   area() {
+    //The area of a circle is pi times the square of the radius
+    //Math.PI returns PI (the ratio of a circle's area to the square of its radius, approximately 3.14)
+    return Math.PI * this.radius * this.radius;
+  }
+}
 
-function reverseVowelAndReplaceL(inputString) {
-    //function to check if a character is a vowel
-    function isVowel(char) {
-      //.includes only involves the characters that are a vowel
-      return 'aeiouAEIOU'.includes(char);
+//Create a subclass called 'Triangle' that inherits from the 'Shape' class
+class Triangle extends Shape {
+  constructor(base, height) {
+    //Call the super constructor with the name 'triangle'
+    super("triangle");
+    this.base = base;
+    this.height = height;
   }
-    //.split takes string, iterates over the character, and converts each to an array element
-    //if so we will store it in our values array
-  
-    const characters = inputString.split('');
-  //using the filter method, we will check if the element in our character(char) array is a vowel
-    const vowels = characters.filter(char => isVowel(char));
-  console.log(vowels);
-    //reverse the order of the vowels to restore the original order
-    //drop a few console.logs to see what is going on and where you might have gone wrong
-    const reversedVowels = vowels.reverse();
-    console.log(`reversedVowels`, reversedVowels);
-  
-    //replace the vowels with the reversed vowels to restore the original vowels
-    let vowelIndex = 0;
-    for(let i = 0; i < characters.length; i++) {
-      if(isVowel(characters[i])) {
-        console.log(`${characters[i]} is a vowel`)
-        characters[i] = reversedVowels[vowelIndex];
-        vowelIndex++;
-      } 
-    }
-    //Replaces all 'L's (uppercase and lowercase) with '1's (ones)
-    
-    for(let i = 0; i < characters.length; i++) {
-      if(characters[i] === 'L'|| characters[i] === 'l') {
-        characters[i] = '1';
-      }
-    }
-    
-    console.log(`characters`, characters);
-  
-    //.join() joins the characters back into the string
-    const result = characters.join ('');
-    console.log(`result`, result);
-    //only thing is reverseL should technically be calling reverseO
-  //feed the reverseVowelandReplaceO function the result because the result is techincally the final array turned into a string
-    reverseVowelAndReplaceO(result);
-    
+  //Override the area method to calculate the area of a triangle
+   area() {
+    //The area of a triangle = 1/2 x base x height, base being the length of the triangle and height being the altitude
+    return 0.5 * this.base * this.height;
   }
-  
-  function reverseVowelAndReplaceO(inputString){
-      //function to check if a character is a vowel
-      function isVowel(char) {
-        return 'aeiouAEIOU'.includes(char);
-    }
-      //.split takes string, iterates over the character, and converts each to an array element
-      //if so we will store it in our values array
-      const characters = inputString.split('');
-    //using the filter method, we will check if the element in our character(char) array is a vowel
-      const vowels = characters.filter(char => isVowel(char));
-    console.log(vowels);
-      //reverse the order of the vowels to restore the original order
-      //drop a few console.logs to see what is going on and where you might have gone wrong
-      const reversedVowels = vowels.reverse();
-      console.log(`reversedVowels`, reversedVowels);
-  
-      //replace the vowels with the reversed vowels to restore the original vowels
-      let vowelIndex = 0;
-      for(let i = 0; i < characters.length; i++) {
-        if(isVowel(characters[i])) {
-          console.log(`${characters[i]} is a vowel`)
-          characters[i] = reversedVowels[vowelIndex];
-          vowelIndex++;
-        } 
-      }
-      //Replaces all 'o's (uppercase and lowercase) with '0's 
-  
-      for(let i = 0; i < characters.length; i++) {
-        if(characters[i] === 'o'|| characters[i] === 'O') {
-          characters[i] = '0';
-        }
-      }
-  
-      console.log(`characters`, characters);
-  
-      //join the characters back into the string
-      const result = characters.join ('');
-      console.log(`result`, result);
-      //only thing is reverseL should technically be calling reverseO
-    //feed the reverseVowelandReplaceO function the result because the result is techincally the final array turned into a string
-      reverseVowelAndReplaceS(result);
-  }
-  
-  function reverseVowelAndReplaceS(inputString){
-      //function to check if a character is a vowel
-      function isVowel(char) {
-        return 'aeiouAEIOU'.includes(char);
-    }
-      //.split takes string, iterates over the character, and converts each to an array element
-      //if so we will store it in our values array
-      const characters = inputString.split('');
-    //using the filter method, we will check if the element in our character(char) array is a vowel
-      const vowels = characters.filter(char => isVowel(char));
-    console.log(vowels);
-      //reverse the order of the vowels to restore the original order
-      //drop a few console.logs to see what is going on and where you might have gone wrong
-      const reversedVowels = vowels.reverse();
-      console.log(`reversedVowels`, reversedVowels);
-  
-      //replace the vowels with the reversed vowels to restore the original vowels
-      let vowelIndex = 0;
-      for(let i = 0; i < characters.length; i++) {
-        if(isVowel(characters[i])) {
-          console.log(`${characters[i]} is a vowel`)
-          characters[i] = reversedVowels[vowelIndex];
-          vowelIndex++;
-        } 
-      }
-      //Replaces all 's's (uppercase and lowercase) with '5's
-  
-      for(let i = 0; i < characters.length; i++) {
-        if(characters[i] === 'S'|| characters[i] === 's') {
-          characters[i] = '5';
-        }
-      }
-  
-      console.log(`characters`, characters);
-  
-      //join the characters back into the string
-      const result = characters.join ('');
-      console.log(`result`, result);
-      //only thing is reverseL should technically be calling reverseO
-    //feed the reverseVowelandReplaceO function the result because the result is techincally the final array turned into a string
-      return result;
-  }
-  
-  reverseVowelAndReplaceL("Hello Worlds");
+}
+
+//using polymorphism
+//Create an instance of the 'Circle' class and calculate its area
+const circle1 = new Circle(5); //A circle with radius 5
+console.log(`The area of the ${circle1.name} is ${circle1.area()} square units`);
+
+//Create an instance of the 'Triangle' class and calculate its area
+const triangle1 = new Triangle(3, 4); //A triangle with base 3 and height 4
+console.log(`The area of the ${triangle1.name} is ${triangle1.area()} square units`);
